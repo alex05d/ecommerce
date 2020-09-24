@@ -10,9 +10,10 @@ class ProductProvider extends Component {
         products: [],
         detailProduct: detailProduct
     };
+    // adding this will insure i get the correct info from the data not just a refrence 
     componentDidMount() {
         this.setProducts();
-    }
+    };
     setProducts = () => {
         let tempProducts = [];
         storeProducts.forEach(item => {
@@ -23,13 +24,24 @@ class ProductProvider extends Component {
         this.setState(() => {
             return { products: tempProducts }
         })
+    };
+
+    getItem = (id) => {
+        const product = this.state.products.find(item => item.id === id);
+        return product;
     }
-    handleDetail = () => {
-        console.log('hello form detail')
-    }
-    addToCart = () => {
-        console.log('hello form add to cart')
-    }
+
+    handleDetail = (id) => {
+        const product = this.getItem(id);
+        this.setState(() => {
+            return {
+                detailProduct: product
+            }
+        })
+    };
+    addToCart = (id) => {
+        console.log(`hello form add to cart.id is ${id}`);
+    };
     // tester = () => {
     //     console.log('state products :', this.state.products[0].inCart);
     //     console.log('data products :', storeProducts[0].inCart);
